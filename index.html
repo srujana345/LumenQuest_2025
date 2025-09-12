@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ffafbd, #ffc3a0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      width: 320px;
+      text-align: center;
+    }
+    .login-container h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background: #ff7b54;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #ff5733;
+    }
+    .role-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .role-buttons button {
+      width: 30%;
+      padding: 8px;
+      background: #6c63ff;
+    }
+    .role-buttons button:hover {
+      background: #4e47d1;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+
+    <!-- Role selection -->
+    <div class="role-buttons">
+      <button onclick="selectRole('staff')">Staff</button>
+      <button onclick="selectRole('manager')">Manager</button>
+      <button onclick="selectRole('admin')">Admin</button>
+    </div>
+    <p id="role-display"><b>Selected Role:</b> None</p>
+
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p id="error-message" class="error"></p>
+  </div>
+
+  <script>
+    let selectedRole = "";
+
+    function selectRole(role) {
+      selectedRole = role;
+      document.getElementById("role-display").innerHTML =
+        "<b>Selected Role:</b> " + role.charAt(0).toUpperCase() + role.slice(1);
+    }
+
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const error = document.getElementById("error-message");
+
+      if (!selectedRole) {
+        error.textContent = "⚠ Please select a role before logging in!";
+        return;
+      }
+
+      // Dummy role-based login
+      if (
+        (selectedRole === "admin" && username === "admin" && password === "1234") ||
+        (selectedRole === "manager" && username === "manager" && password === "5678") ||
+        (selectedRole === "staff" && username === "staff" && password === "1111")
+      ) {
+        alert(selectedRole + " login successful 🎉");
+        window.location.href = selectedRole + "-dashboard.html"; // redirect based on role
+      } else {
+        error.textContent = "Invalid username or password for " + selectedRole + "!";
+      }
+    }
+  </script>
+</body>
+</html>
